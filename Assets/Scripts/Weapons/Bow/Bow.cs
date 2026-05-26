@@ -25,7 +25,9 @@ public class Bow : MonoBehaviour
 
     public void UpdateStats(WeaponInfo info)
     {
-        damageAmount = info.damage;
+        int playerAgility = Player.Instance != null ? Player.Instance.GetAgility() : 0;
+        damageAmount = info.damage + playerAgility;
+
         attackCooldown = info.attackDuration;
     }
 

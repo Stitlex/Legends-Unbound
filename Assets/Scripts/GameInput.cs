@@ -12,27 +12,37 @@ public class GameInput : MonoBehaviour
     public event EventHandler OnPlayerAttack;
     public event EventHandler OnSlot1Pressed;
     public event EventHandler OnSlot2Pressed;
+    public event EventHandler OnInventoryToggled;
+    public event EventHandler OnPausePressed;
 
     private void Awake()
     {
         Instance = this;
         playerInputActions = new PlayerInputActions();
-        playerInputActions.Enable();
+
+        playerInputActions.Player.Enable();
         playerInputActions.QuickSlots.Enable();
+        playerInputActions.Combat.Enable();
 
         playerInputActions.Combat.Attack.started += PlayerAttack_started;
         playerInputActions.QuickSlots.Slot1.performed += OnSlot1Performed;
         playerInputActions.QuickSlots.Slot2.performed += OnSlot2Performed;
+        playerInputActions.Player.ToggleInventory.performed += OnToggleInventoryPerformed;
+        playerInputActions.Player.Pause.performed += Pause_performed;
     }
 
     private void OnDestroy()
     {
-        playerInputActions.Disable();
+        playerInputActions.Player.Disable();
+        playerInputActions.QuickSlots.Disable();
+        playerInputActions.Combat.Disable();
         playerInputActions.Dispose();
 
         playerInputActions.Combat.Attack.started -= PlayerAttack_started;
         playerInputActions.QuickSlots.Slot1.performed -= OnSlot1Performed;
         playerInputActions.QuickSlots.Slot2.performed -= OnSlot2Performed;
+        playerInputActions.Player.ToggleInventory.performed -= OnToggleInventoryPerformed;
+        playerInputActions.Player.Pause.performed -= Pause_performed;
     }
 
     public Vector2 GetMovementVector()
@@ -65,5 +75,15 @@ public class GameInput : MonoBehaviour
     private void OnSlot2Performed(InputAction.CallbackContext context)
     {
         OnSlot2Pressed?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void OnToggleInventoryPerformed(InputAction.CallbackContext context)
+    {
+        OnInventoryToggled?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void Pause_performed(InputAction.CallbackContext context)
+    {
+        OnPausePressed?.Invoke(this, EventArgs.Empty);
     }
 }

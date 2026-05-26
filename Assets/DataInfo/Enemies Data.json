@@ -1,0 +1,75 @@
+{
+  "enemies": [
+    {
+      "enemyId": "skeleton_weak",
+      "enemyName": "Скелет-новобранець",
+      "baseHealth": 15,
+      "damage": 2,
+      "speed": 2.5,
+      "expReward": 25,
+      "minGoldReward": 5,
+      "maxGoldReward": 15,
+      "lootTable": [
+        { "weaponId": "starter_sword", "dropChance": 0.3 },
+        { "weaponId": "wooden_bow", "dropChance": 0.15 }
+      ]
+    },
+    {
+      "enemyId": "skeleton_warrior",
+      "enemyName": "Скелет-воїн",
+      "baseHealth": 35,
+      "damage": 6,
+      "speed": 2.0,
+      "expReward": 60,
+      "minGoldReward": 20,
+      "maxGoldReward": 40,
+      "lootTable": [
+        { "weaponId": "iron_sword", "dropChance": 0.2 },
+        { "weaponId": "starter_sword", "dropChance": 0.5 },
+        { "weaponId": "assassins_dagger", "dropChance": 1 }
+      ]
+    },
+    {
+      "enemyId": "fast_zombie",
+      "enemyName": "Швидкий зомбі",
+      "baseHealth": 15,
+      "damage": 4,
+      "speed": 4.2,
+      "expReward": 40,
+      "minGoldReward": 10,
+      "maxGoldReward": 25,
+      "lootTable": [
+        { "weaponId": "assassins_dagger", "dropChance": 0.1 }
+      ]
+    },
+    {
+      "enemyId": "phantom",
+      "enemyName": "Привид",
+      "baseHealth": 50,
+      "damage": 9,
+      "speed": 2.8,
+      "expReward": 90,
+      "minGoldReward": 35,
+      "maxGoldReward": 60,
+      "lootTable": [
+        { "weaponId": "elf_bow", "dropChance": 0.15 },
+        { "weaponId": "wooden_bow", "dropChance": 0.4 }
+      ]
+    },
+    {
+      "enemyId": "orc_berserk",
+      "enemyName": "Орк-Громила (Міні-бос)",
+      "baseHealth": 120,
+      "damage": 18,
+      "speed": 1.5,
+      "expReward": 250,
+      "minGoldReward": 100,
+      "maxGoldReward": 200,
+      "lootTable": [
+        { "weaponId": "iron_axe", "dropChance": 0.25 },
+        { "weaponId": "heavy_crossbow", "dropChance": 0.15 },
+        { "weaponId": "iron_sword", "dropChance": 0.4 }
+      ]
+    }
+  ]
+}

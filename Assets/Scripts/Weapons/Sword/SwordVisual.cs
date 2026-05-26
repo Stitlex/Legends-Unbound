@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.Rendering;
 
+[RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(SpriteRenderer))]
 public class SwordVisual : MonoBehaviour
 {
     [SerializeField] private Sword sword;
@@ -24,6 +26,8 @@ public class SwordVisual : MonoBehaviour
             sword.OnSwordSwing -= Sword_OnSwordSwing;
         }
     }
+
+    public string IsAttack() => ATTACK;
 
     private void Sword_OnSwordSwing(object sender, System.EventArgs e) => animator.SetTrigger(ATTACK);
 

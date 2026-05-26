@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class ActiveWeapon : MonoBehaviour
@@ -7,14 +8,42 @@ public class ActiveWeapon : MonoBehaviour
     [SerializeField] private Sword sword;
     [SerializeField] private Bow bow;
 
+    private Vector3 mousePos;
+    private Vector3 playerPosition;
+
+    public event EventHandler OnWeaponAttack;
+
     private void Awake()
     {
         Instance = this;
     }
 
+    private void Start()
+    {
+        if (sword != null) sword.OnSwordSwing += Weapon_OnAttackFired;
+        if (bow != null) bow.OnBowAttack += Weapon_OnAttackFired;
+    }
+
     private void Update()
     {
-        if (Player.Instance.IsAlive()) FollowMousePosition();
+        if (Player.Instance != null && Player.Instance.IsAlive())
+        {
+            // Оптимізація: отримуємо позиції лише ОДИН раз за кадр
+            mousePos = GameInput.Instance.GetMousePosition();
+            playerPosition = Player.Instance.GetPlayerScreenPosition();
+
+            FollowMousePosition();
+        }
+    }
+    private void OnDestroy()
+    {
+        if (sword != null) sword.OnSwordSwing -= Weapon_OnAttackFired;
+        if (bow != null) bow.OnBowAttack -= Weapon_OnAttackFired;
+    }
+
+    private void Weapon_OnAttackFired(object sender, EventArgs e)
+    {
+        OnWeaponAttack?.Invoke(this, EventArgs.Empty);
     }
 
     public void SwitchWeapon(string type)
@@ -49,6 +78,8 @@ public class ActiveWeapon : MonoBehaviour
 
     public void ExecuteAttack()
     {
+        if (Time.timeScale == 0f) return;
+
         MonoBehaviour activeWeapon = GetActiveWeapon();
 
         if (activeWeapon is Sword swordComponent)
@@ -63,8 +94,6 @@ public class ActiveWeapon : MonoBehaviour
 
     public Quaternion GetProjectileRotation()
     {
-        Vector3 mousePos = GameInput.Instance.GetMousePosition();
-        Vector3 playerPosition = Player.Instance.GetPlayerScreenPosition();
         Vector2 direction = mousePos - playerPosition;
 
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
@@ -73,9 +102,6 @@ public class ActiveWeapon : MonoBehaviour
 
     private void FollowMousePosition()
     {
-        Vector3 mousePos = GameInput.Instance.GetMousePosition();
-        Vector3 playerPosition = Player.Instance.GetPlayerScreenPosition();
-
         if (mousePos.x < playerPosition.x)
         {
             transform.rotation = Quaternion.Euler(0, 180, 0);

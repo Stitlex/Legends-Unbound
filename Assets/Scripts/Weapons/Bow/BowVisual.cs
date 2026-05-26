@@ -1,5 +1,7 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(SpriteRenderer))]
 public class BowVisual : MonoBehaviour
 {
     [SerializeField] private Bow bow;
@@ -23,6 +25,8 @@ public class BowVisual : MonoBehaviour
             bow.OnBowAttack -= Bow_OnBowAttack;
         }
     }
+
+    public string IsShoot() => SHOOT;
 
     private void Bow_OnBowAttack(object sender, System.EventArgs e)
     {

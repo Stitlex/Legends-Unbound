@@ -1,0 +1,60 @@
+{
+  "weapons": [
+    {
+      "id": "starter_sword",
+      "weaponName": "Початковий меч",
+      "typeWeapon": "Melee",
+      "damage": 3,
+      "attackDuration": 0.5,
+      "prefabPath": "Weapons/Sword"
+    },
+    {
+      "id": "iron_sword",
+      "weaponName": "Залізний меч",
+      "typeWeapon": "Melee",
+      "damage": 10,
+      "attackDuration": 0.6,
+      "prefabPath": "Weapons/Sword"
+    },
+    {
+      "id": "iron_axe",
+      "weaponName": "Залізна сокира",
+      "typeWeapon": "Melee",
+      "damage": 18,
+      "attackDuration": 1.2,
+      "prefabPath": "Weapons/Sword"
+    },
+    {
+      "id": "assassins_dagger",
+      "weaponName": "Кинджал вбивці",
+      "typeWeapon": "Melee",
+      "damage": 5,
+      "attackDuration": 0.25,
+      "prefabPath": "Weapons/Sword"
+    },
+    {
+      "id": "wooden_bow",
+      "weaponName": "Дерев'яний лук",
+      "typeWeapon": "Ranged",
+      "damage": 1,
+      "attackDuration": 0.8,
+      "prefabPath": "Weapons/Bow"
+    },
+    {
+      "id": "elf_bow",
+      "weaponName": "Ельфійський лук",
+      "typeWeapon": "Ranged",
+      "damage": 6,
+      "attackDuration": 0.45,
+      "prefabPath": "Weapons/Bow"
+    },
+    {
+      "id": "heavy_crossbow",
+      "weaponName": "Важкий арбалет",
+      "typeWeapon": "Ranged",
+      "damage": 22,
+      "attackDuration": 1.5,
+      "prefabPath": "Weapons/Bow"
+    }
+  ]
+}

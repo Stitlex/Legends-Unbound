@@ -1,14 +1,15 @@
 using System;
 using UnityEngine;
 
+[RequireComponent(typeof(PolygonCollider2D))]
 public class Sword : MonoBehaviour
 {
     private int damageAmount;
     private float attackCooldown;
 
-    private float damageCooldown = 0.1f;
-    private float lastDamageTime = 2;
-    private float nextAttackTime = 0.5f;
+    private float damageCooldown = 0f;
+    private float lastDamageTime = 0f;
+    private float nextAttackTime = 0f;
 
 
     public event EventHandler OnSwordSwing;
@@ -48,7 +49,9 @@ public class Sword : MonoBehaviour
 
     public void UpdateStats(WeaponInfo info)
     {
-        damageAmount = info.damage;
+        int playerStrength = Player.Instance != null ? Player.Instance.GetStrength() : 0;
+        damageAmount = info.damage + playerStrength;
+
         attackCooldown = info.attackDuration;
     }
 

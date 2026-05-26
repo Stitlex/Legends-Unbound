@@ -120,7 +120,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.25, y: 1.25, z: 1.25}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2009006321337022742}
@@ -238,7 +238,7 @@ GameObject:
   - component: {fileID: 3046304315567307206}
   - component: {fileID: 5214428295019594535}
   m_Layer: 0
-  m_Name: Skeleton
+  m_Name: Skeleton Warrior
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -268,7 +268,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7259857714490794846}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -296,7 +296,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 7259857714490794846}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.6
+  m_Radius: 0.8
   m_Speed: 1.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -343,7 +343,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.06831205, y: 1.038205}
+  m_Offset: {x: 0.07745129, y: 1.303247}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -353,7 +353,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.876889, y: 2.1297705}
+  m_Size: {x: 1.358229, y: 2.6598544}
   m_EdgeRadius: 0
 --- !u!60 &4310919296111969705
 PolygonCollider2D:
@@ -362,7 +362,7 @@ PolygonCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7259857714490794846}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
@@ -385,7 +385,7 @@ PolygonCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -401,20 +401,25 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 2.1519704, y: 2.1401482}
-      - {x: 1.0555413, y: 2.2367163}
-      - {x: 1.163175, y: 2.0724223}
-      - {x: 1.0858862, y: 1.4664166}
-      - {x: 0.5871266, y: 0.9974878}
-      - {x: 0.025713056, y: 0.7737701}
-      - {x: 0.7665094, y: 0.43134835}
-      - {x: 1.4193116, y: 0.3618602}
-      - {x: 2.224366, y: 0.4670844}
-      - {x: 2.7201688, y: 0.74404216}
-      - {x: 2.949322, y: 0.91187346}
-      - {x: 3.0533404, y: 1.2469254}
-      - {x: 2.9701219, y: 1.6415485}
-      - {x: 2.6210175, y: 1.9711006}
+    - - {x: 2.6468577, y: 2.682167}
+      - {x: 1.3206593, y: 2.7433863}
+      - {x: 1.3126342, y: 2.6407197}
+      - {x: 1.8074731, y: 2.5643032}
+      - {x: 1.7728525, y: 2.1532228}
+      - {x: 1.5398223, y: 1.3814228}
+      - {x: 1.3209426, y: 1.1285226}
+      - {x: 0.68996406, y: 1.2325438}
+      - {x: 0.011022061, y: 0.9280257}
+      - {x: 0.7518186, y: 0.58560467}
+      - {x: 1.404621, y: 0.47204283}
+      - {x: 2.2096748, y: 0.51115763}
+      - {x: 2.793624, y: 0.59713185}
+      - {x: 3.250488, y: 0.83107305}
+      - {x: 3.6924005, y: 1.2763075}
+      - {x: 3.7534668, y: 1.4094715}
+      - {x: 3.812831, y: 1.5389233}
+      - {x: 3.8001657, y: 1.861914}
+      - {x: 3.2968047, y: 2.3971407}
   m_UseDelaunayMesh: 1
 --- !u!114 &3046304315567307206
 MonoBehaviour:
@@ -428,15 +433,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa24cec91f0f1fe43b77a78771620784, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAI
-  startingState: 0
+  startingState: 1
   roamingDistanceMax: 7
   roamingDistanceMin: 3
   roamingTimerMax: 2
   isChasingEnemy: 1
-  chasingDistance: 4
-  chasingSpeedMultiplier: 2
+  chasingDistance: 7
+  chasingSpeedMultiplier: 4
   isAttackingEnemy: 1
-  attackingDistance: 2
+  attackingDistance: 3
   attackRate: 2
 --- !u!114 &5214428295019594535
 MonoBehaviour:
@@ -450,5 +455,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d9561f4d9c01644d95cba53fb2717d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyEntity
-  maxHealth: 10
-  damageAmount: 1
+  enemyConfigId: skeleton_warrior
