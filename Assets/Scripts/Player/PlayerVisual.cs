@@ -1,5 +1,8 @@
+using System;
 using UnityEngine;
 
+[RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(SpriteRenderer))]
 public class PlayerVisual : MonoBehaviour
 {
     private Animator animator;
@@ -7,6 +10,7 @@ public class PlayerVisual : MonoBehaviour
 
     private const string IS_RUNNING = "IsRunning";
     private const string IS_DIE = "IsDie";
+    private const string ATTACK = "Attack";
 
     private void Awake()
     {
@@ -17,6 +21,20 @@ public class PlayerVisual : MonoBehaviour
     private void Start()
     {
         Player.Instance.OnPlayerDeath += Instance_OnPlayerDeath;
+
+        ActiveWeapon.Instance.OnWeaponAttack += ActiveWeapon_OnWeaponAttack;
+    }
+
+    private void OnDestroy()
+    {
+        if (Player.Instance != null)
+        {
+            Player.Instance.OnPlayerDeath -= Instance_OnPlayerDeath;
+        }
+        if (ActiveWeapon.Instance != null)
+        {
+            ActiveWeapon.Instance.OnWeaponAttack -= ActiveWeapon_OnWeaponAttack;
+        }
     }
 
     private void Update()
@@ -31,9 +49,15 @@ public class PlayerVisual : MonoBehaviour
         animator.SetBool(IS_DIE, true);
     }
 
+    private void ActiveWeapon_OnWeaponAttack(object sender, EventArgs e)
+    {
+        animator.SetTrigger(ATTACK);
+    }
 
     private void AdjustPlayerFacingDirection()
     {
+        if (Time.timeScale == 0f) return;
+
         Vector3 mousePos = GameInput.Instance.GetMousePosition();
         Vector3 playerPosition = Player.Instance.GetPlayerScreenPosition();
 

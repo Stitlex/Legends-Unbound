@@ -1,0 +1,55 @@
+{
+    "playerData": {
+        "position": [
+            -0.4124206304550171,
+            1.6113135814666749,
+            0.0
+        ],
+        "currentHealth": 30,
+        "equippedMeleeId": "starter_sword",
+        "equippedRangedId": "wooden_bow",
+        "level": 1,
+        "currentExp": 25,
+        "expToNextLevel": 100,
+        "strength": 5,
+        "agility": 5,
+        "gold": 10,
+        "unlockedWeapons": [
+            "starter_sword",
+            "wooden_bow"
+        ],
+        "unlockedFood": []
+    },
+    "enemiesData": [
+        {
+            "id": "",
+            "configId": "skeleton_warrior",
+            "position": [
+                -2.9555671215057375,
+                2.299506664276123,
+                -0.04723818600177765
+            ],
+            "currentHealth": 29
+        },
+        {
+            "id": "",
+            "configId": "skeleton_weak",
+            "position": [
+                -6.376245021820068,
+                4.044467449188232,
+                -0.03583830967545509
+            ],
+            "currentHealth": 9
+        },
+        {
+            "id": "",
+            "configId": "skeleton_warrior",
+            "position": [
+                -9.769468307495118,
+                -0.0844772532582283,
+                -0.04999923333525658
+            ],
+            "currentHealth": 35
+        }
+    ]
+}

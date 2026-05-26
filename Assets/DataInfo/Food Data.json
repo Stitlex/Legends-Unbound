@@ -1,0 +1,39 @@
+{
+  "items": [
+    {
+      "id": "apple_red",
+      "itemName": "Червоне яблуко",
+      "itemType": "Food",
+      "healthRestore": 3,
+      "description": "Свіже соковите яблуко. Трохи тамує голод і відновлює 3 HP."
+    },
+    {
+      "id": "sweet_roll",
+      "itemName": "Солодкий рулет",
+      "itemType": "Food",
+      "healthRestore": 10,
+      "description": "Неймовірно пахуча випічка з глазур'ю. Відновлює 10 HP."
+    },
+    {
+      "id": "health_potion_small",
+      "itemName": "Мале зілля здоров'я",
+      "itemType": "Food",
+      "healthRestore": 25,
+      "description": "Слабка алхімічна суміш червоного кольору. Миттєво відновлює 25 HP."
+    },
+    {
+      "id": "cooked_meat",
+      "itemName": "Смажене м'ясо",
+      "itemType": "Food",
+      "healthRestore": 15,
+      "description": "Шматок підсмаженого на багатті м'яса дичини. Відновлює 15 HP."
+    },
+    {
+      "id": "dried_berries",
+      "itemName": "Сушені ягоди",
+      "itemType": "Food",
+      "healthRestore": 5,
+      "description": "Жменя сушених лісових ягід. Зручно носити з собою. Відновлює 5 HP."
+    }
+  ]
+}

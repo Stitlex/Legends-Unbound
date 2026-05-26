@@ -37,19 +37,7 @@ public class EnemyAI : MonoBehaviour
     private float checkDirectionDuration = 0.1f;
 
     public event EventHandler OnEnemyAttack;
-    public bool IsRunning
-    {
-        get {
-            if (navMeshAgent.velocity == Vector3.zero)
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
-        }
-    }
+    public bool IsRunning => navMeshAgent.velocity != Vector3.zero;
 
     private enum State
     {
