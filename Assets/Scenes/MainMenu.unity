@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 310725285}
   - component: {fileID: 310725284}
   m_Layer: 5
-  m_Name: NewGame
+  m_Name: NewGameButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1025,7 +1025,7 @@ GameObject:
   - component: {fileID: 570800199}
   - component: {fileID: 570800198}
   m_Layer: 5
-  m_Name: BackMain
+  m_Name: BackMainButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1557,7 +1557,7 @@ GameObject:
   - component: {fileID: 890235410}
   - component: {fileID: 890235409}
   m_Layer: 5
-  m_Name: LoadGame
+  m_Name: LoadGameButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2119,7 +2119,7 @@ GameObject:
   - component: {fileID: 1064054220}
   - component: {fileID: 1064054219}
   m_Layer: 5
-  m_Name: QuitGame
+  m_Name: QuitGameButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2240,7 +2240,7 @@ GameObject:
   - component: {fileID: 1091494688}
   - component: {fileID: 1091494687}
   m_Layer: 5
-  m_Name: BackMain
+  m_Name: BackMainButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2683,8 +2683,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 570800197}
   - {fileID: 368490892}
+  - {fileID: 570800197}
   m_Father: {fileID: 2139540926}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}

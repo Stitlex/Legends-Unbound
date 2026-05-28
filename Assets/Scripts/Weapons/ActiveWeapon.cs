@@ -28,7 +28,6 @@ public class ActiveWeapon : MonoBehaviour
     {
         if (Player.Instance != null && Player.Instance.IsAlive())
         {
-            // Оптимізація: отримуємо позиції лише ОДИН раз за кадр
             mousePos = GameInput.Instance.GetMousePosition();
             playerPosition = Player.Instance.GetPlayerScreenPosition();
 
@@ -102,6 +101,8 @@ public class ActiveWeapon : MonoBehaviour
 
     private void FollowMousePosition()
     {
+        if (Time.timeScale == 0f) return;
+
         if (mousePos.x < playerPosition.x)
         {
             transform.rotation = Quaternion.Euler(0, 180, 0);

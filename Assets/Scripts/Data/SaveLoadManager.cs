@@ -40,13 +40,22 @@ public class SaveLoadManager : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
     public bool SaveExists(string worldName)
     {
         string path = Path.Combine(savesFolder, worldName + ".json");
         return File.Exists(path);
     }
 
-    [ContextMenu("Save Game")]
     public void SaveGame(string worldName)
     {
         string path = Path.Combine(savesFolder, worldName + ".json");
@@ -56,7 +65,7 @@ public class SaveLoadManager : MonoBehaviour
             Player.Instance.CapturePlayerState(saveData.playerData);
 
         List<EnemySaveData> enemiesList = new List<EnemySaveData>();
-        EnemyEntity[] allEnemies = FindObjectsByType<EnemyEntity>(FindObjectsSortMode.None);
+        EnemyEntity[] allEnemies = FindObjectsByType<EnemyEntity>(FindObjectsInactive.Exclude);
 
         foreach (EnemyEntity enemy in allEnemies)
         {
@@ -86,7 +95,6 @@ public class SaveLoadManager : MonoBehaviour
         Debug.Log($"Світ '{worldName}' збережено! Живих ворогів: {enemiesList.Count}");
     }
 
-    [ContextMenu("Load Game")]
     public void LoadGame(string worldName)
     {
         string path = Path.Combine(savesFolder, worldName + ".json");
@@ -102,7 +110,7 @@ public class SaveLoadManager : MonoBehaviour
         if (Player.Instance != null && saveData.playerData != null)
             Player.Instance.LoadPlayerState(saveData.playerData);
 
-        EnemyEntity[] existing = FindObjectsByType<EnemyEntity>(FindObjectsSortMode.None);
+        EnemyEntity[] existing = FindObjectsByType<EnemyEntity>(FindObjectsInactive.Exclude);
         foreach (var e in existing)
             Destroy(e.gameObject);
 
@@ -113,16 +121,6 @@ public class SaveLoadManager : MonoBehaviour
                 EnemySpawner.Instance.SpawnEnemy(data);
             }
         }
-    }
-
-    private void OnEnable()
-    {
-        SceneManager.sceneLoaded += OnSceneLoaded;
-    }
-
-    private void OnDisable()
-    {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)

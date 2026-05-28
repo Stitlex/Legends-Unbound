@@ -16,23 +16,37 @@ public class DataManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-            LoadWeaponData();
-            LoadEnemyData();
-            LoadFoodData();
-        }
-        else
+        if (Instance != null)
         {
             Destroy(gameObject);
+            return;
         }
+
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+
+        LoadWeaponData();
+        LoadEnemyData();
+        LoadFoodData();
     }
 
     public WeaponInfo GetWeaponInfo(string id)
     {
         if (weaponsDatabase.TryGetValue(id, out WeaponInfo info)) return info;
+        return null;
+    }
+
+    public EnemyInfo GetEnemyInfo(string id)
+    {
+        if (enemiesDatabase.TryGetValue(id, out EnemyInfo info)) return info;
+        Debug.LogError($"Ворога з ID {id} не знайдено в базі даних!");
+        return null;
+    }
+
+    public ItemInfo GetFoodInfo(string id)
+    {
+        if (foodDatabase.TryGetValue(id, out ItemInfo info)) return info;
+        Debug.LogError($"Предмет їжі з ID {id} не знайдено в базі даних!");
         return null;
     }
 
@@ -50,13 +64,6 @@ public class DataManager : MonoBehaviour
         }
     }
 
-    public EnemyInfo GetEnemyInfo(string id)
-    {
-        if (enemiesDatabase.TryGetValue(id, out EnemyInfo info)) return info;
-        Debug.LogError($"Ворога з ID {id} не знайдено в базі даних!");
-        return null;
-    }
-
     private void LoadEnemyData()
     {
         if (enemiesJsonFile != null)
@@ -70,12 +77,6 @@ public class DataManager : MonoBehaviour
         }
     }
 
-    public ItemInfo GetFoodInfo(string id)
-    {
-        if (foodDatabase.TryGetValue(id, out ItemInfo info)) return info;
-        Debug.LogError($"Предмет їжі з ID {id} не знайдено в базі даних!");
-        return null;
-    }
 
     private void LoadFoodData()
     {

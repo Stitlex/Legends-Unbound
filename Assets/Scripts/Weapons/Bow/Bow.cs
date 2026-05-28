@@ -19,7 +19,6 @@ public class Bow : MonoBehaviour
         if (Time.time < nextAttackTime) return;
 
         nextAttackTime = Time.time + attackCooldown;
-
         OnBowAttack?.Invoke(this, EventArgs.Empty);
     }
 
@@ -27,7 +26,6 @@ public class Bow : MonoBehaviour
     {
         int playerAgility = Player.Instance != null ? Player.Instance.GetAgility() : 0;
         damageAmount = info.damage + playerAgility;
-
         attackCooldown = info.attackDuration;
     }
 

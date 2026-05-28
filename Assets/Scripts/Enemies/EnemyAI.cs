@@ -28,7 +28,6 @@ public class EnemyAI : MonoBehaviour
     private Vector3 startingPosition;
     private Vector3 lastPosition;
 
-
     private float roamingTimer;
     private float nextAttackTime;
     private float chasingSpeed;
@@ -51,6 +50,12 @@ public class EnemyAI : MonoBehaviour
     private void Awake()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
+
+        if (navMeshAgent == null)
+        {
+            Debug.LogError("NavMeshAgent not found on " + gameObject.name);
+            return;
+        }
         navMeshAgent.updateRotation = false;
         navMeshAgent.updateUpAxis = false;
 
@@ -61,7 +66,6 @@ public class EnemyAI : MonoBehaviour
         startingPosition = transform.position;
 
     }
-
 
     private void Update()
     {
@@ -75,7 +79,29 @@ public class EnemyAI : MonoBehaviour
         currentState = State.Death;
     }
 
-    public float GetRoamingAnimationSpeed() =>navMeshAgent.speed / roamingSpeed;
+    public float GetRoamingAnimationSpeed() => navMeshAgent.speed / roamingSpeed;
+
+    private void StateHandler()
+    {
+        switch (currentState)
+        {
+            case State.Roaming:
+                RoamingState();
+                break;
+            case State.Chasing:
+                ChasingTarget();
+                break;
+            case State.Attacking:
+                AttackingTarget();
+                break;
+            case State.Death:
+                break;
+            default:
+            case State.Idle:
+                break;
+
+        }
+    }
 
     private void RoamingState()
     {
@@ -147,35 +173,13 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
-    private void StateHandler()
-    {
-        switch (currentState)
-        {
-            case State.Roaming:
-                RoamingState();
-                break;
-            case State.Chasing:
-                ChasingTarget();
-                break;
-            case State.Attacking:
-                AttackingTarget();
-                break;
-            case State.Death:
-                break;
-            default:
-            case State.Idle:
-                break;
-
-        }
-    }   
+    private Vector3 GetRoamingPosition() => startingPosition + Utils.GetRandomDir() * UnityEngine.Random.Range(roamingDistanceMin, roamingDistanceMax);
 
     private void Roaming()
     {
         roamPosition = GetRoamingPosition();
         navMeshAgent.SetDestination(roamPosition);
     }
-
-    private Vector3 GetRoamingPosition() => startingPosition + Utils.GetRandomDir() * UnityEngine.Random.Range(roamingDistanceMin, roamingDistanceMax);
 
     private void MovementDirectonHandler()
     {

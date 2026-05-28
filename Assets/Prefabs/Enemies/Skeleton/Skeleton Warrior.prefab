@@ -439,7 +439,7 @@ MonoBehaviour:
   roamingTimerMax: 2
   isChasingEnemy: 1
   chasingDistance: 7
-  chasingSpeedMultiplier: 4
+  chasingSpeedMultiplier: 2.5
   isAttackingEnemy: 1
   attackingDistance: 3
   attackRate: 2

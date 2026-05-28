@@ -14,6 +14,8 @@ public class GameInput : MonoBehaviour
     public event EventHandler OnSlot2Pressed;
     public event EventHandler OnInventoryToggled;
     public event EventHandler OnPausePressed;
+    public event EventHandler OnCharacterMenuToggled;
+    public event EventHandler OnPlayerDash;
 
     private void Awake()
     {
@@ -23,12 +25,14 @@ public class GameInput : MonoBehaviour
         playerInputActions.Player.Enable();
         playerInputActions.QuickSlots.Enable();
         playerInputActions.Combat.Enable();
+        playerInputActions.Player.Dash.performed += PlayerDashPerformed;
 
         playerInputActions.Combat.Attack.started += PlayerAttack_started;
         playerInputActions.QuickSlots.Slot1.performed += OnSlot1Performed;
         playerInputActions.QuickSlots.Slot2.performed += OnSlot2Performed;
         playerInputActions.Player.ToggleInventory.performed += OnToggleInventoryPerformed;
         playerInputActions.Player.Pause.performed += Pause_performed;
+        playerInputActions.Player.ToggleCharacterMenu.performed += OnCharacterMenuPerformed;
     }
 
     private void OnDestroy()
@@ -37,12 +41,15 @@ public class GameInput : MonoBehaviour
         playerInputActions.QuickSlots.Disable();
         playerInputActions.Combat.Disable();
         playerInputActions.Dispose();
+        playerInputActions.Player.Dash.performed -= PlayerDashPerformed;
+
 
         playerInputActions.Combat.Attack.started -= PlayerAttack_started;
         playerInputActions.QuickSlots.Slot1.performed -= OnSlot1Performed;
         playerInputActions.QuickSlots.Slot2.performed -= OnSlot2Performed;
         playerInputActions.Player.ToggleInventory.performed -= OnToggleInventoryPerformed;
         playerInputActions.Player.Pause.performed -= Pause_performed;
+        playerInputActions.Player.ToggleCharacterMenu.performed -= OnCharacterMenuPerformed;
     }
 
     public Vector2 GetMovementVector()
@@ -85,5 +92,15 @@ public class GameInput : MonoBehaviour
     private void Pause_performed(InputAction.CallbackContext context)
     {
         OnPausePressed?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void OnCharacterMenuPerformed(InputAction.CallbackContext context)
+    {
+        OnCharacterMenuToggled?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void PlayerDashPerformed(InputAction.CallbackContext obj)
+    {
+        OnPlayerDash?.Invoke(this, EventArgs.Empty);
     }
 }

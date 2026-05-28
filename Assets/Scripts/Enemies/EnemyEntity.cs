@@ -44,6 +44,48 @@ public class EnemyEntity : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.TryGetComponent(out Player player))
+        {
+            if (polygonCollider2D != null && collision.IsTouching(polygonCollider2D))
+            {
+                player.TakeDamage(transform, damageAmount);
+            }
+        }
+    }
+
+    public int GetCurrentHealth() => currentHealth;
+    public bool IsDead() => currentHealth <= 0;
+    public string GetEnemyConfigId() => enemyConfigId;
+
+    public void PolygonColliderTurnOff() => polygonCollider2D.enabled = false;
+    public void PolygonColliderTurnOn() => polygonCollider2D.enabled = true;
+
+    public void SetCurrentHealth(int health)
+    {
+        currentHealth = health;
+        isHealthLoadedFromSave = true;
+    }
+
+    public void TakeDamage(int damage, string attackerName = "")
+    {
+        if (currentHealth <= 0) return;
+
+        currentHealth = Mathf.Max(0, currentHealth - damage);
+        Debug.Log($"[{attackerName}] вдарив. Шкода: {damage}. Залишене HP: {currentHealth}");
+
+        OnTakeHit?.Invoke(this, EventArgs.Empty);
+
+        if (currentHealth <= 0)
+        {
+            if (Player.Instance != null)
+                Player.Instance.AddExperience(expReward);
+
+            DetectDeath();
+        }
+    }
+
     private void LoadConfig()
     {
         if (string.IsNullOrEmpty(enemyConfigId))
@@ -73,43 +115,9 @@ public class EnemyEntity : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void DestroySelf()
     {
-        if (collision.TryGetComponent(out Player player))
-        {
-            if (polygonCollider2D != null && collision.IsTouching(polygonCollider2D))
-            {
-                player.TakeDamage(transform, damageAmount);
-            }
-        }
-    }
-
-    public int GetCurrentHealth() => currentHealth;
-    public bool IsDead() => currentHealth <= 0;
-    public string GetEnemyConfigId() => enemyConfigId;
-
-    public void SetCurrentHealth(int health)
-    {
-        currentHealth = health;
-        isHealthLoadedFromSave = true;
-    }
-
-    public void TakeDamage(int damage, string attackerName = "")
-    {
-        if (currentHealth <= 0) return;
-
-        currentHealth = Mathf.Max(0, currentHealth - damage);
-        Debug.Log($"[{attackerName}] вдарив. Шкода: {damage}. Залишене HP: {currentHealth}");
-
-        OnTakeHit?.Invoke(this, EventArgs.Empty);
-
-        if (currentHealth <= 0)
-        {
-            if (Player.Instance != null)
-                Player.Instance.AddExperience(expReward);
-
-            DetectDeath();
-        }
+        Destroy(gameObject);
     }
 
     private void DetectDeath()
@@ -126,14 +134,6 @@ public class EnemyEntity : MonoBehaviour
             Invoke(nameof(DestroySelf), 0.7f);
         }
     }
-
-    private void DestroySelf()
-    {
-        Destroy(gameObject);
-    }
-
-    public void PolygonColliderTurnOff() => polygonCollider2D.enabled = false;
-    public void PolygonColliderTurnOn() => polygonCollider2D.enabled = true;
 
     private void DropLoot()
     {
