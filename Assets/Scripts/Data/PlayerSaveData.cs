@@ -20,4 +20,5 @@ public class PlayerSaveData
     public int gold;
     public List<string> unlockedWeapons;
     public List<string> unlockedFood;
+    public int skillPoints = 0;
 }

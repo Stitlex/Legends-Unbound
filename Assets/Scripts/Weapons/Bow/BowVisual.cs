@@ -6,6 +6,7 @@ public class BowVisual : MonoBehaviour
 {
     [SerializeField] private Bow bow;
     private Animator animator;
+
     private const string SHOOT = "Shoot";
 
     private void Awake()
@@ -15,20 +16,20 @@ public class BowVisual : MonoBehaviour
 
     private void Start()
     {
-        bow.OnBowAttack += Bow_OnBowAttack;
+        bow.OnBowAttack += BowOnBowAttack;
     }
 
     private void OnDestroy()
     {
         if (bow != null)
         {
-            bow.OnBowAttack -= Bow_OnBowAttack;
+            bow.OnBowAttack -= BowOnBowAttack;
         }
     }
 
     public string IsShoot() => SHOOT;
 
-    private void Bow_OnBowAttack(object sender, System.EventArgs e)
+    private void BowOnBowAttack(object sender, System.EventArgs e)
     {
         animator.SetTrigger(SHOOT);
     }

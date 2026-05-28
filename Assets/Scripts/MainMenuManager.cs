@@ -42,11 +42,37 @@ public class MainMenuManager : MonoBehaviour
 
     public void ShowMainPanel() => SetPanel(mainPanel);
     public void ShowNewGamePanel() => SetPanel(newGamePanel);
-
     public void ShowLoadGamePanel()
     {
         SetPanel(loadGamePanel);
         RefreshSaveList();
+    }
+
+    public void RefreshSaveList()
+    {
+        if (listContainer == null || saveSlotPrefab == null) return;
+
+        foreach (Transform child in listContainer)
+        {
+            Destroy(child.gameObject);
+        }
+
+        string path = Path.Combine(Application.dataPath, "Saves");
+        if (!Directory.Exists(path)) return;
+
+        string[] files = Directory.GetFiles(path, "*.json");
+
+        foreach (string file in files)
+        {
+            string fileName = Path.GetFileNameWithoutExtension(file);
+            GameObject slotObj = Instantiate(saveSlotPrefab, listContainer);
+
+            SaveSlotUI slotUI = slotObj.GetComponent<SaveSlotUI>();
+            if (slotUI != null)
+            {
+                slotUI.Setup(fileName, PerformLoad, PerformDelete);
+            }
+        }
     }
 
     private void SetPanel(GameObject activePanel)
@@ -82,33 +108,6 @@ public class MainMenuManager : MonoBehaviour
     {
         Debug.Log("Вихід з гри...");
         Application.Quit();
-    }
-
-    public void RefreshSaveList()
-    {
-        if (listContainer == null || saveSlotPrefab == null) return;
-
-        foreach (Transform child in listContainer)
-        {
-            Destroy(child.gameObject);
-        }
-
-        string path = Path.Combine(Application.dataPath, "Saves");
-        if (!Directory.Exists(path)) return;
-
-        string[] files = Directory.GetFiles(path, "*.json");
-
-        foreach (string file in files)
-        {
-            string fileName = Path.GetFileNameWithoutExtension(file);
-            GameObject slotObj = Instantiate(saveSlotPrefab, listContainer);
-
-            SaveSlotUI slotUI = slotObj.GetComponent<SaveSlotUI>();
-            if (slotUI != null)
-            {
-                slotUI.Setup(fileName, PerformLoad, PerformDelete);
-            }
-        }
     }
 
     private void PerformLoad(string fileName)

@@ -13,21 +13,7 @@ public class InventoryManager : MonoBehaviour
     [Header("Inventory Data")]
     [SerializeField] private int gold = 0;
     [SerializeField] private List<string> unlockedWeaponIds = new List<string>();
-
     [SerializeField] private List<string> unlockedFoodIds = new List<string>();
-
-    public List<string> GetUnlockedFoodIds() => unlockedFoodIds;
-
-    public void AddFoodToInventory(string foodId)
-    {
-        unlockedFoodIds.Add(foodId);
-    }
-    public int GetGold() => gold;
-    public List<string> GetUnlockedWeaponIds() => unlockedWeaponIds;
-
-
-    public WeaponInfo GetEquippedMelee() => equippedMelee;
-    public WeaponInfo GetEquippedRanged() => equippedRanged;
 
     private void Awake()
     {
@@ -66,6 +52,19 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
+    
+    public int GetGold() => gold;
+    public List<string> GetUnlockedWeaponIds() => unlockedWeaponIds;
+
+    public WeaponInfo GetEquippedMelee() => equippedMelee;
+    public WeaponInfo GetEquippedRanged() => equippedRanged;
+
+    public List<string> GetUnlockedFoodIds() => unlockedFoodIds;
+
+    public void AddFoodToInventory(string foodId)
+    {
+        unlockedFoodIds.Add(foodId);
+    }
 
     public bool IsWeaponEquipped(string weaponId)
     {
@@ -77,22 +76,6 @@ public class InventoryManager : MonoBehaviour
     private void GameInput_OnSlot1Pressed(object sender, EventArgs e) => EquipActiveSlot("Melee");
 
     private void GameInput_OnSlot2Pressed(object sender, EventArgs e) => EquipActiveSlot("Ranged");
-
-    private void EquipActiveSlot(string type)
-    {
-        WeaponInfo weaponToEquip = (type == "Melee") ? equippedMelee : equippedRanged;
-
-        if (weaponToEquip == null || string.IsNullOrEmpty(weaponToEquip.id))
-        {
-            Debug.LogWarning($"Слот {type} порожній!");
-            return;
-        }
-
-        ActiveWeapon.Instance.SwitchWeapon(type);
-        ActiveWeapon.Instance.UpdateWeaponStats(weaponToEquip);
-
-        Debug.Log($"Одягнено: {weaponToEquip.weaponName}");
-    }
 
     public void ChangeWeapon(string newWeaponID)
     {
@@ -128,17 +111,6 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    public void AddGold(int amount)
-    {
-        gold += amount;
-        Debug.Log($"[ГАМАНЕЦЬ] Отримано золота: +{amount}. Баланс: {gold} монет.");
-    }
-
-    public void SetGold(int amount)
-    {
-        gold = amount;
-    }
-
     public void AddWeaponToUnlocked(string weaponId)
     {
         if (!unlockedWeaponIds.Contains(weaponId))
@@ -160,6 +132,17 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
+    public void AddGold(int amount)
+    {
+        gold += amount;
+        Debug.Log($"[ГАМАНЕЦЬ] Отримано золота: +{amount}. Баланс: {gold} монет.");
+    }
+
+    public void SetGold(int amount)
+    {
+        gold = amount;
+    }
+
     public void UseFood(string foodId)
     {
         ItemInfo food = DataManager.Instance.GetFoodInfo(foodId);
@@ -177,5 +160,21 @@ public class InventoryManager : MonoBehaviour
         {
             unlockedFoodIds = new List<string>(foodIds);
         }
+    }
+
+    private void EquipActiveSlot(string type)
+    {
+        WeaponInfo weaponToEquip = (type == "Melee") ? equippedMelee : equippedRanged;
+
+        if (weaponToEquip == null || string.IsNullOrEmpty(weaponToEquip.id))
+        {
+            Debug.LogWarning($"Слот {type} порожній!");
+            return;
+        }
+
+        ActiveWeapon.Instance.SwitchWeapon(type);
+        ActiveWeapon.Instance.UpdateWeaponStats(weaponToEquip);
+
+        Debug.Log($"Одягнено: {weaponToEquip.weaponName}");
     }
 }

@@ -15,7 +15,6 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI detailDescriptionText;
     [SerializeField] private TextMeshProUGUI detailStatText;
     [SerializeField] private Button equipButton;
-
     [SerializeField] private Button closeDetailsButton;
 
     private string lastSelectedId = "";
@@ -94,6 +93,25 @@ public class InventoryUI : MonoBehaviour
         }
     }
 
+    public void SelectCategory(string category)
+    {
+        currentCategory = category;
+        UpdateInventoryList();
+    }
+
+    public bool IsDetailsPanelOpen()
+    {
+        return detailsPanel != null && detailsPanel.activeSelf;
+    }
+
+    public void CloseDetailsPanel()
+    {
+        if (detailsPanel != null)
+            detailsPanel.SetActive(false);
+
+        lastSelectedId = "";
+    }
+
     private void CreateItemRow(string id, string name, string type, bool isEquipped, int count)
     {
         GameObject row = Instantiate(itemRowPrefab, listContentContainer);
@@ -170,24 +188,5 @@ public class InventoryUI : MonoBehaviour
                 }
             }
         }
-    }
-
-    public void SelectCategory(string category)
-    {
-        currentCategory = category;
-        UpdateInventoryList();
-    }
-
-    public bool IsDetailsPanelOpen()
-    {
-        return detailsPanel != null && detailsPanel.activeSelf;
-    }
-
-    public void CloseDetailsPanel()
-    {
-        if (detailsPanel != null)
-            detailsPanel.SetActive(false);
-
-        lastSelectedId = "";
     }
 }

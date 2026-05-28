@@ -40,10 +40,23 @@ public class EnemySpawner : MonoBehaviour
         GameObject go = Instantiate(prefab,
             new Vector3(data.position[0], data.position[1], data.position[2]), Quaternion.identity);
 
+        StartCoroutine(InitializeEnemyAfterSpawn(go, data));
+    }
+
+    private System.Collections.IEnumerator InitializeEnemyAfterSpawn(GameObject go, EnemySaveData data)
+    {
+        yield return null;
+
         EnemyEntity entity = go.GetComponent<EnemyEntity>();
         if (entity != null)
         {
             entity.SetCurrentHealth(data.currentHealth);
+        }
+
+        var agent = go.GetComponent<UnityEngine.AI.NavMeshAgent>();
+        if (agent != null)
+        {
+            agent.Warp(go.transform.position);
         }
     }
 }

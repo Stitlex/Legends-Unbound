@@ -21,7 +21,6 @@ public class PlayerVisual : MonoBehaviour
     private void Start()
     {
         Player.Instance.OnPlayerDeath += Instance_OnPlayerDeath;
-
         ActiveWeapon.Instance.OnWeaponAttack += ActiveWeapon_OnWeaponAttack;
     }
 

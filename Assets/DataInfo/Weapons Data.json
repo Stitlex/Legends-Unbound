@@ -53,7 +53,7 @@
       "weaponName": "Важкий арбалет",
       "typeWeapon": "Ranged",
       "damage": 22,
-      "attackDuration": 1.5,
+      "attackDuration": 2,
       "prefabPath": "Weapons/Bow"
     }
   ]

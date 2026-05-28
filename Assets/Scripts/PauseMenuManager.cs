@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI; // ОБОВ'ЯЗКОВО для роботи з компонентом Button
+using UnityEngine.UI;
 
 public class PauseMenuManager : MonoBehaviour
 {
@@ -10,7 +10,6 @@ public class PauseMenuManager : MonoBehaviour
     [Header("UI Elements")]
     [SerializeField] private GameObject pauseMenuPanel;
 
-    // Додаємо поля для самих кнопок, які з'являться в інспекторі
     [Header("Menu Buttons")]
     [SerializeField] private Button resumeButton;
     [SerializeField] private Button saveButton;
@@ -28,10 +27,8 @@ public class PauseMenuManager : MonoBehaviour
     {
         Resume();
 
-        // Підписуємось на подію натискання Esc з GameInput
         GameInput.Instance.OnPausePressed += GameInput_OnPausePressed;
 
-        // Прив'язуємо функції до кнопок через код (AddListener)
         if (resumeButton != null) resumeButton.onClick.AddListener(Resume);
         if (saveButton != null) saveButton.onClick.AddListener(SaveGame);
         if (exitButton != null) exitButton.onClick.AddListener(ExitToMainMenu);
@@ -39,16 +36,34 @@ public class PauseMenuManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        // Відписуємось від подій для запобігання витоку пам'яті
         if (GameInput.Instance != null)
         {
             GameInput.Instance.OnPausePressed -= GameInput_OnPausePressed;
         }
 
-        // Рекомендується очищати слухачів кнопок при знищенні об'єкта
         if (resumeButton != null) resumeButton.onClick.RemoveListener(Resume);
         if (saveButton != null) saveButton.onClick.RemoveListener(SaveGame);
         if (exitButton != null) exitButton.onClick.RemoveListener(ExitToMainMenu);
+    }
+
+    public bool IsPaused() => isPaused;
+
+    public void Resume()
+    {
+        pauseMenuPanel.SetActive(false);
+        Time.timeScale = 1f;
+        isPaused = false;
+    }
+
+    public void Pause()
+    {
+        if (Player.Instance != null && !Player.Instance.IsAlive()) return;
+
+        CloseAllOtherMenus();
+
+        pauseMenuPanel.SetActive(true);
+        Time.timeScale = 0f;
+        isPaused = true;
     }
 
     private void GameInput_OnPausePressed(object sender, EventArgs e)
@@ -63,31 +78,25 @@ public class PauseMenuManager : MonoBehaviour
         }
     }
 
-    public void Resume()
+    private void CloseAllOtherMenus()
     {
-        pauseMenuPanel.SetActive(false);
-        Time.timeScale = 1f;
-        isPaused = false;
+        if (CharacterMenuManager.Instance != null && CharacterMenuManager.Instance.IsOpen())
+        {
+            CharacterMenuManager.Instance.CloseCharacterMenu();
+        }
+
+        if (InventoryController.Instance != null && InventoryController.Instance.IsInventoryOpen())
+        {
+            InventoryController.Instance.ForceCloseInventory();
+        }
     }
 
-    public void Pause()
-    {
-        if (Player.Instance != null && !Player.Instance.IsAlive()) return;
-
-        pauseMenuPanel.SetActive(true);
-        Time.timeScale = 0f;
-        isPaused = true;
-    }
-
-    // Методи тепер можна зробити private, оскільки ззовні (з Unity Event) їх більше ніхто не смикає
     private void SaveGame()
     {
         if (SaveLoadManager.Instance != null)
         {
-            // 1. Беремо назву поточного світу точно так само, як ти це робиш у SaveLoadManager через PlayerPrefs
             string currentWorld = PlayerPrefs.GetString("SelectedWorld", "DefaultWorld");
 
-            // 2. Викликаємо твій готовий метод збереження
             SaveLoadManager.Instance.SaveGame(currentWorld);
 
             Debug.Log($"[PauseMenu] Кнопка UI спрацювала. Світ '{currentWorld}' збережено через SaveLoadManager.");
