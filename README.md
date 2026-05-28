@@ -46,6 +46,9 @@
 
 <img width="922" height="519" alt="image" src="https://github.com/user-attachments/assets/9b16d202-fc86-478f-8d5e-c7b62b8aa796" />
 
+<img width="845" height="475" alt="image" src="https://github.com/user-attachments/assets/23957e69-abbe-4e8e-9158-16762668bc1e" />
+
+<img width="839" height="472" alt="image" src="https://github.com/user-attachments/assets/3c877d7f-c6ba-4c8d-a859-7f07cf7f33ca" />
 
 ## Як запустити
 
