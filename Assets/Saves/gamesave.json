@@ -1,11 +1,12 @@
 {
     "playerData": {
         "position": [
-            -0.4124206304550171,
+            3.9075767993927,
             1.6113135814666749,
             0.0
         ],
-        "currentHealth": 30,
+        "currentHealth": 24,
+        "maxHealth": 30,
         "equippedMeleeId": "starter_sword",
         "equippedRangedId": "wooden_bow",
         "level": 1,
@@ -18,38 +19,36 @@
             "starter_sword",
             "wooden_bow"
         ],
-        "unlockedFood": []
+        "unlockedFood": [],
+        "skillPoints": 0
     },
     "enemiesData": [
         {
-            "id": "",
             "configId": "skeleton_warrior",
             "position": [
-                -2.9555671215057375,
-                2.299506664276123,
-                -0.04723818600177765
+                -0.9221963286399841,
+                2.053516387939453,
+                -0.049994733184576038
             ],
             "currentHealth": 29
         },
         {
-            "id": "",
-            "configId": "skeleton_weak",
-            "position": [
-                -6.376245021820068,
-                4.044467449188232,
-                -0.03583830967545509
-            ],
-            "currentHealth": 9
-        },
-        {
-            "id": "",
             "configId": "skeleton_warrior",
             "position": [
                 -9.769468307495118,
-                -0.0844772532582283,
-                -0.04999923333525658
+                -0.08447729796171189,
+                -0.04999447613954544
             ],
             "currentHealth": 35
+        },
+        {
+            "configId": "skeleton_weak",
+            "position": [
+                -6.376245021820068,
+                4.044470310211182,
+                -0.04999496787786484
+            ],
+            "currentHealth": 9
         }
     ]
 }

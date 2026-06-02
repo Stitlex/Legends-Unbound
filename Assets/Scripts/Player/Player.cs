@@ -38,6 +38,8 @@ public class Player : MonoBehaviour
     private Rigidbody2D rb;
 
     private int currentHealth;
+    private bool isLoadedFromSave = false;
+
     private bool canTakeDamage;
     private bool isAlive;
     private bool isRunning = false;
@@ -54,7 +56,7 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        currentHealth = maxHealth;
+        if (!isLoadedFromSave) currentHealth = maxHealth;
         canTakeDamage = true;
         isAlive = true;
         GameInput.Instance.OnPlayerAttack += PlayerOnPlayerAttack;
@@ -217,8 +219,8 @@ public class Player : MonoBehaviour
     {
         data.position = new float[] { transform.position.x, transform.position.y, transform.position.z };
         data.currentHealth = currentHealth;
+        data.maxHealth = maxHealth;
 
-        // Записуємо нові стати
         data.level = level;
         data.skillPoints = skillPoints;
         data.currentExp = currentExp;
@@ -248,8 +250,12 @@ public class Player : MonoBehaviour
             if (rb != null) rb.position = transform.position;
         }
 
-        currentHealth = data.currentHealth;
-        if (currentHealth > 0) isAlive = true;
+        if (data.maxHealth > 0) maxHealth = data.maxHealth;
+        currentHealth = Mathf.Clamp(data.currentHealth, 0, maxHealth);
+        if (currentHealth > 0)
+            isAlive = true;
+        else
+            isAlive = false;
 
         level = data.level;
         skillPoints = data.skillPoints;
@@ -284,6 +290,8 @@ public class Player : MonoBehaviour
 
             InventoryManager.Instance.RefreshActiveWeapon();
         }
+
+        isLoadedFromSave = true;
     }
     private void PlayerOnPlayerAttack(object sender, System.EventArgs e)
     {

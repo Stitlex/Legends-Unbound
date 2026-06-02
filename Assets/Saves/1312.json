@@ -1,0 +1,108 @@
+{
+    "playerData": {
+        "position": [
+            9.651569366455079,
+            1.966862678527832,
+            0.0
+        ],
+        "currentHealth": 125,
+        "maxHealth": 125,
+        "equippedMeleeId": "starter_sword",
+        "equippedRangedId": "wooden_bow",
+        "level": 1,
+        "currentExp": 0,
+        "expToNextLevel": 100,
+        "strength": 5,
+        "agility": 5,
+        "gold": 0,
+        "unlockedWeapons": [
+            "starter_sword",
+            "wooden_bow"
+        ],
+        "unlockedFood": [],
+        "skillPoints": 2333314
+    },
+    "enemiesData": [
+        {
+            "configId": "skeleton_warrior",
+            "position": [
+                -0.6403537392616272,
+                2.7446346282958986,
+                -0.0499948151409626
+            ],
+            "currentHealth": 35
+        },
+        {
+            "configId": "skeleton_weak",
+            "position": [
+                -9.09087085723877,
+                4.980364799499512,
+                -0.04999507963657379
+            ],
+            "currentHealth": 15
+        },
+        {
+            "configId": "skeleton_warrior",
+            "position": [
+                3.7334277629852297,
+                12.360269546508789,
+                -0.04999596253037453
+            ],
+            "currentHealth": 35
+        },
+        {
+            "configId": "skeleton_weak",
+            "position": [
+                -8.114409446716309,
+                -8.279521942138672,
+                -0.049993500113487247
+            ],
+            "currentHealth": 15
+        },
+        {
+            "configId": "skeleton_warrior",
+            "position": [
+                -21.96976089477539,
+                3.685203790664673,
+                -0.049994926899671558
+            ],
+            "currentHealth": 35
+        },
+        {
+            "configId": "skeleton_warrior",
+            "position": [
+                1.6103688478469849,
+                1.626287817955017,
+                -0.049994681030511859
+            ],
+            "currentHealth": 35
+        },
+        {
+            "configId": "skeleton_weak",
+            "position": [
+                -18.370498657226564,
+                -26.336076736450197,
+                -0.04999134689569473
+            ],
+            "currentHealth": 15
+        },
+        {
+            "configId": "skeleton_warrior",
+            "position": [
+                -7.995208263397217,
+                10.29420280456543,
+                -0.04999571293592453
+            ],
+            "currentHealth": 35
+        },
+        {
+            "configId": "skeleton_warrior",
+            "position": [
+                -5.648709297180176,
+                1.5135530233383179,
+                -0.04999466612935066
+            ],
+            "currentHealth": 35
+        }
+    ]
+}

@@ -6,6 +6,8 @@ public class PlayerSaveData
 {
     public float[] position;
     public int currentHealth;
+    public int maxHealth;
+
     public string equippedMeleeId;
     public string equippedRangedId;
 
